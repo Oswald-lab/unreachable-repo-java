@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.octiq.test</groupId>
+    <artifactId>unreachable-repository</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <!-- DNS failure: the .invalid TLD can never resolve (fails fast) -->
+        <repository>
+            <id>unreachable-dns</id>
+            <url>https://repo.unreachable.invalid/maven2</url>
+        </repository>
+        <!-- Network timeout: non-routable IP, connection hangs until timeout -->
+        <repository>
+            <id>unreachable-timeout</id>
+            <url>https://10.255.255.1:8443/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- Only "exists" in the unreachable repos, so it cannot be resolved from Central -->
+        <dependency>
+            <groupId>com.octiq.internal</groupId>
+            <artifactId>private-lib</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.octiq.test'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    // DNS failure (fails fast)
+    maven { url = uri('https://repo.unreachable.invalid/maven2') }
+    // Network timeout (non-routable IP; waits for the timeouts set in gradle.properties)
+    maven { url = uri('https://10.255.255.1:8443/maven-public/') }
+}
+
+dependencies {
+    implementation 'com.octiq.internal:private-lib:1.0.0'
+}
